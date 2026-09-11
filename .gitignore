@@ -1,0 +1,5 @@
+/.bundle/
+/vendor/bundle/
+/tmp/
+/.rspec_status
+.env
