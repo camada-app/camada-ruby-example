@@ -5,6 +5,7 @@ require "socket"
 require "camada"
 
 BLOCKED_IP = "203.0.113.66"
+CAMADA_VARS = %w[CAMADA_KEY CAMADA_INGEST_URL CAMADA_SNAPSHOT_URL CAMADA_TRUSTED_PROXY CAMADA_DISABLED].freeze
 BROWSER = { "HTTP_X_FORWARDED_FOR" => "198.51.100.7", "HTTP_ACCEPT" => "text/html", "HTTP_SEC_FETCH_DEST" => "document" }.freeze
 ROOT = File.expand_path("..", __dir__)
 
@@ -28,7 +29,7 @@ RSpec.describe "camada-ruby-example" do
 
   before do
     dead = "http://127.0.0.1:#{closed_port}"
-    @saved = ENV.to_h.slice(*%w[CAMADA_KEY CAMADA_INGEST_URL CAMADA_SNAPSHOT_URL CAMADA_TRUSTED_PROXY CAMADA_DISABLED])
+    @saved = ENV.to_h.slice(*CAMADA_VARS)
     ENV["CAMADA_KEY"] = "tok-example.snap-example"
     ENV["CAMADA_INGEST_URL"] = dead
     ENV["CAMADA_SNAPSHOT_URL"] = "#{dead}/snapshot"
@@ -39,7 +40,7 @@ RSpec.describe "camada-ruby-example" do
 
   after do
     Camada.reset!
-    %w[CAMADA_KEY CAMADA_INGEST_URL CAMADA_SNAPSHOT_URL CAMADA_TRUSTED_PROXY CAMADA_DISABLED].each { |k| ENV.delete(k) }
+    CAMADA_VARS.each { |k| ENV.delete(k) }
     @saved.each { |k, v| ENV[k] = v }
   end
 
