@@ -2,8 +2,8 @@
 
 # camada-ruby-example: a small Sinatra app wired with camada against a local edge-analyst.
 # Setup: cp .env.example .env (paste the CAMADA_KEY printed by `npm run seed`), bundle install,
-# bundle exec puma -b tcp://127.0.0.1:3004 config.ru. The middleware is mounted in config.ru
-# (`use Camada::Rack`) — that line is the whole install; the engine builds itself on the first request.
+# bundle exec puma -b tcp://127.0.0.1:3004 config.ru. The middleware is mounted in config.ru;
+# the engine builds itself on the first request.
 require "json"
 require "sinatra/base"
 require "camada"
