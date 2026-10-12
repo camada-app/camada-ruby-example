@@ -1,7 +1,7 @@
 PATH
   remote: ../camada-ruby
   specs:
-    camada (0.1.3)
+    camada (0.1.4)
 
 GEM
   remote: https://rubygems.org/
