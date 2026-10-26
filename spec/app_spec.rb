@@ -100,10 +100,11 @@ RSpec.describe "camada-ruby-example" do
     expect(last_response.body).to include("/__camada/challenge")
   end
 
-  it "answers json to an api client on /challenge-me" do
+  it "signals an api client on /challenge-me" do
     get "/challenge-me", {}, { "HTTP_X_FORWARDED_FOR" => "198.51.100.7" }
-    expect(last_response.status).to eq(403)
-    expect(JSON.parse(last_response.body)).to eq({ "error" => "challenge_required" })
+    expect(last_response.status).to eq(200)
+    expect(last_response.headers["x-camada-challenge"]).to eq("1")
+    expect(last_response.headers["cache-control"]).to eq("no-store")
   end
 
   it "renders the 404 page for an unknown path" do
